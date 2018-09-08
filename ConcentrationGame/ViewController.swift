@@ -15,118 +15,82 @@ class ViewController: UIViewController {
     @IBOutlet weak var flipCountLabel: UILabel!
     @IBOutlet var buttonArray: [UIButton]!
   
-    var emojyFlagsArray = ["🇮🇹", "🇮🇹", "🇨🇾", "🇨🇾", "🇮🇱", "🇮🇱", "🇨🇦", "🇨🇦"]
-    var emojyFlagsArray1 = ["🦄", "🦄", "🐝", "🐝", "🦉", "🦉", "🐔", "🐔"]
-    var emojyFlagsArray2 = ["🥑", "🥑", "🍒", "🍒", "🍖", "🍖", "🥝", "🥝"]
-    var emojyFlagsArray3 = ["✝️", "✝️", "🕎", "🕎", "⚛️", "⚛️", "☯️", "👮🏼‍♂️"]
-    var emojyFlagsArray4 = ["🚀", "🚀", "🚁", "🚁", "⛵️", "⛵️", "⛴", "⛴"]
-    var emojyFlagsArray5 = ["🐖", "🐖", "🐕", "🐕", "🐇", "🐇", "🦔", "🦔"]
+    var emojyFlagsArray = ["🚀","🥑","✝️","🇮🇹","🦄", "🇨🇾", "🇮🇱", "🇨🇦"]
+    var emojyDictionary = [Int: String]()
     
+//    var emojyFlagsArray1 = ["🦄", "🥑", "🚁", "🦄", "🐝", "🦉", "🦉", "🐔", "🐔"]
+//    var emojyFlagsArray2 = ["🥑", "🥑", "🍒", "🍒", "🍖", "🍖", "🥝", "🥝"]
+//    var emojyFlagsArray3 = ["✝️", "✝️", "🕎", "🕎", "⚛️", "⚛️", "☯️", "👮🏼‍♂️"]
+//    var emojyFlagsArray4 = ["🚀", "🚀", "🚁", "🚁", "⛵️", "⛵️", "⛴", "⛴"]
+//    var emojyFlagsArray5 = ["🐖", "🐖", "🐕", "🐕", "🐇", "🐇", "🦔", "🦔"]
+//
     var currentOpenCards = 0
     var flipCount = 0 {
         didSet {
             flipCountLabel.text = "Flips =   \(flipCount)"
         }
     }
+    let game = Concentration(numberOfPairsOfCards: 5) //in buttonArrays
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emojyFlagsArray = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: emojyFlagsArray) as! [String]
+    //   emojyFlagsArray = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: emojyFlagsArray) as! [String]
         
         for i in buttonArray{
             print(i.currentTitle)
         }
         
+        for i in buttonArray{
+        i.setTitle("", for: .normal)
+        
+        }
+        createDictionary()
+        
+        
+        
     }
-    
 
-    //MARK:- func
-    func reversCard(emojy: String, sender: UIButton){
-        flipCount += 1
-        sender.isEnabled = false
-        
-        if sender.currentTitle == emojy {
-            sender.setTitle("", for: .normal)
-            sender.backgroundColor = .orange
-        }else {
-            sender.setTitle(emojy, for: .normal)
-            sender.backgroundColor = .white
-        }
-        print(sender.currentTitle)
-        
-        currentOpenCards += 1
-        if currentOpenCards == 2 {
-            if isEqualTwoCard(){
-                currentOpenCards = 0
-                print("2 card to garbage")
-                twoCardToCarbage()
-            } else {
-                currentOpenCards = 0
-                print("close 2 card")
-                closeOpenVisibleCard()
-            }
-        }
-        
-    }
-    
-    func twoCardToCarbage(){
-        for i in buttonArray{
-            if i.currentTitle != ""{
-                i.isHidden = true
-            }
-        }
-    }
-    
-    func isEqualTwoCard() -> Bool {
-        var count = 0
-        var emojy1 = ""
-        var emojy2 = ""
-        
-        for i in buttonArray{
-            if i.currentTitle != "" && count == 0 {
-                count = 1
-                emojy1 = i.currentTitle!
-                
-            } else {
-                if i.currentTitle != "" && count == 1 {
-                    emojy2 = i.currentTitle!
-                }
-            }
-            
-        }
-        return emojy1 == emojy2 ? true : false
-        
-    }
-    
-    func closeOpenVisibleCard(){
-        for i in buttonArray{
-            i.isEnabled = false
-        }
-        
-        print("begin animation")
-        UIView.animate(withDuration: 3, delay: 0, options: [], animations: {
-            for i in self.buttonArray{
-                i.setTitle("", for: .normal)
-                i.backgroundColor = .orange
-            }
-        }) { (finished ) in
-            
-            print("all buttton Enable")
-            for i in self.buttonArray{
-                i.isEnabled = true
-            }
-        }
-        
-        
-    }
     //MARK:- button action
-    @IBAction func buttonPressed(_ sender: UIButton) {
-        let cardNumber = buttonArray.index(of: sender)
-        print(cardNumber)
-        
-        
-        reversCard(emojy: emojyFlagsArray[cardNumber!], sender: sender)
+    @IBAction func touchCard(_ sender: UIButton) {
+        if let cardNumber = buttonArray.index(of: sender) {
+            print(cardNumber)
+            game.chooseCard(at: cardNumber)
+            updateViewFromModel()
+            
+        } else {
+            print("error")
+        }
         
     }
+    
+    func updateViewFromModel() {
+        
+        for i in buttonArray.indices {
+            if game.cards[i].isFaceUp {
+                buttonArray[i].setTitle(emoji(for: game.cards[i]), for: .normal)
+                buttonArray[i].backgroundColor = .white
+            } else {
+                buttonArray[i].setTitle("", for: .normal)
+                buttonArray[i].backgroundColor = game.cards[i].isMatched ? .clear : .orange
+            }
+        }
+    }
+    
+    func createDictionary() {
+         emojyFlagsArray = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: emojyFlagsArray) as! [String]
+        for i in 0 ..< game.cards.count / 2 {
+            emojyDictionary[i] = emojyFlagsArray[i]
+       
+            
+        }
+        print(emojyDictionary)
+        print(emojyFlagsArray)
+        
+    }
+    
+    func emoji(for card: Card) -> String {
+        return emojyDictionary[card.identifier] ?? "?"
+    }
+    
 }
 
