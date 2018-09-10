@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var flipCountLabel: UILabel!
     @IBOutlet var buttonArray: [UIButton]!
   
-    var emojyFlagsArray = ["🚀","🥑","✝️","🇮🇹","🦄", "🇨🇾", "🇮🇱", "🇨🇦"]
+    var emojyFlagsArray = ["🚀","🥑","✝️","🇮🇹","🦄", "🇨🇾", "🇮🇱", "🇨🇦", "🐖",  "🐕",  "🐇", "🦔"]
     var emojyDictionary = [Int: String]()
     
 //    var emojyFlagsArray1 = ["🦄", "🥑", "🚁", "🦄", "🐝", "🦉", "🦉", "🐔", "🐔"]
@@ -52,6 +52,7 @@ class ViewController: UIViewController {
 
     //MARK:- button action
     @IBAction func touchCard(_ sender: UIButton) {
+        flipCount += 1
         if let cardNumber = buttonArray.index(of: sender) {
             print(cardNumber)
             game.chooseCard(at: cardNumber)
@@ -92,5 +93,9 @@ class ViewController: UIViewController {
         return emojyDictionary[card.identifier] ?? "?"
     }
     
+    @IBAction func allFaceUp(_ sender: UIButton) {
+       game.showAll()
+        updateViewFromModel()
+    }
 }
 

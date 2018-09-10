@@ -76,6 +76,9 @@
                                 <rect key="frame" x="220" y="416" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="allFaceUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UC9-Cb-x2g"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJY-NV-Prl">
                                 <rect key="frame" x="33" y="596" width="309" height="57"/>
