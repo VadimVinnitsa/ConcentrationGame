@@ -30,7 +30,7 @@ class ViewController: UIViewController {
             flipCountLabel.text = "Flips =   \(flipCount)"
         }
     }
-    let game = Concentration(numberOfPairsOfCards: 5) //in buttonArrays
+   lazy var game = Concentration(numberOfPairsOfCards: buttonArray.count / 2) //in buttonArrays
     
     override func viewDidLoad() {
         super.viewDidLoad()
