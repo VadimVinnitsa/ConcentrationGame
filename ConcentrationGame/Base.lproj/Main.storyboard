@@ -73,9 +73,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrh-eX-rS9">
-                                <rect key="frame" x="220" y="416" width="46" height="30"/>
+                                <rect key="frame" x="64" y="549" width="52" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="showAll"/>
                                 <connections>
                                     <action selector="allFaceUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UC9-Cb-x2g"/>
                                 </connections>
@@ -124,7 +124,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSy-YA-W8g">
-                                <rect key="frame" x="92" y="381" width="46" height="30"/>
+                                <rect key="frame" x="282" y="549" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                             </button>

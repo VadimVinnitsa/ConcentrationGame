@@ -15,8 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var flipCountLabel: UILabel!
     @IBOutlet var buttonArray: [UIButton]!
   
-    var emojyFlagsArray = ["🚀","🥑","✝️","🇮🇹","🦄", "🇨🇾", "🇮🇱", "🇨🇦", "🐖",  "🐕",  "🐇", "🦔"]
-    var emojyDictionary = [Int: String]()
+   private var emojyFlagsArray = ["🚀","🥑","✝️","🇮🇹","🦄", "🇨🇾", "🇮🇱", "🇨🇦", "🐖",  "🐕",  "🐇", "🦔"]
+  private  var emojyDictionary = [Int: String]()
     
 //    var emojyFlagsArray1 = ["🦄", "🥑", "🚁", "🦄", "🐝", "🦉", "🦉", "🐔", "🐔"]
 //    var emojyFlagsArray2 = ["🥑", "🥑", "🍒", "🍒", "🍖", "🍖", "🥝", "🥝"]
@@ -25,12 +25,12 @@ class ViewController: UIViewController {
 //    var emojyFlagsArray5 = ["🐖", "🐖", "🐕", "🐕", "🐇", "🐇", "🦔", "🦔"]
 //
     var currentOpenCards = 0
-    var flipCount = 0 {
+  private(set)  var flipCount = 0 {
         didSet {
             flipCountLabel.text = "Flips =   \(flipCount)"
         }
     }
-   lazy var game = Concentration(numberOfPairsOfCards: buttonArray.count / 2) //in buttonArrays
+ private lazy var game = Concentration(numberOfPairsOfCards: buttonArray.count / 2) //in buttonArrays
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +45,6 @@ class ViewController: UIViewController {
         
         }
         createDictionary()
-        
-        
         
     }
 
@@ -89,7 +87,7 @@ class ViewController: UIViewController {
         
     }
     
-    func emoji(for card: Card) -> String {
+  private  func emoji(for card: Card) -> String {
         return emojyDictionary[card.identifier] ?? "?"
     }
     

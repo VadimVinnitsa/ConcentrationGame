@@ -11,9 +11,9 @@ import GameplayKit
 
 class Concentration {
     
-    var cards = [Card]()
+  private(set)  var cards = [Card]()
     
-    var indexOfOneAndOnlyOneFaceUpCard: Int? {
+  private var indexOfOneAndOnlyOneFaceUpCard: Int? {
         get {
             var foundIndex: Int?
             for index in cards.indices {
@@ -38,6 +38,7 @@ class Concentration {
 
     
     func chooseCard(at index: Int) {
+        assert(cards.indices.contains(index), "error")
                 if !cards[index].isMatched {
                     if let matchIndex = indexOfOneAndOnlyOneFaceUpCard, matchIndex != index {
                         if cards[matchIndex].identifier == cards[index].identifier {
@@ -94,6 +95,7 @@ class Concentration {
     }
     
     init(numberOfPairsOfCards: Int) {
+        assert(numberOfPairsOfCards > 0, "error1")
         for _ in 1 ... numberOfPairsOfCards {
             let card = Card()
             cards += [card, card]
